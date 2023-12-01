@@ -16,6 +16,10 @@ const DeletePost = ({ postId, onDelete }) => {
       } else {
         const errorData = await response.json();
         console.error('Error al eliminar la publicación:', errorData);
+
+        if (response.status === 403) {
+          alert('No tienes permisos para eliminar este posteo.');
+        }
       }
     } catch (error) {
       console.error('Error al eliminar la publicación:', error);
@@ -24,7 +28,9 @@ const DeletePost = ({ postId, onDelete }) => {
 
   return (
     <div>
-      <button onClick={handleDelete}>Eliminar Publicación</button>
+      <button className="delete-button" onClick={handleDelete}>
+        Eliminar Publicación
+      </button>
     </div>
   );
 };

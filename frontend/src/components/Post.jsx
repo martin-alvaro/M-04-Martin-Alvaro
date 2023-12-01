@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
+import '../css/CreatePost.css'
+import Header from './Header'
 
 const CreatePost = () => {
   const [posts, setPosts] = useState([]);
@@ -47,7 +49,7 @@ const CreatePost = () => {
         setTitle('');
         setDescription('');
         setImageURL('');
-        navigate('/post');
+        navigate('/home');
 
       } else {
         const errorData = await response.json();
@@ -61,28 +63,31 @@ const CreatePost = () => {
   };
 
   return (
-    <div>
-      <h1>Publicaciones</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+    <body>
+      <Header />
+      <div className="create-post-container">
+      <h1>Crear Publicación</h1>
+      {error && <p className="error-message">{error}</p>}
+      <form className="create-post-form" onSubmit={handleSubmit}>
         <label>
-          Título:
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <p>Título</p>
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required/>
         </label>
-        <br />
+        
         <label>
-          Descripción:
-          <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+          <p>Descripción</p>
+          <textarea value={description} onChange={(e) => setDescription(e.target.value)} required rows="4"/>
         </label>
-        <br />
+        
         <label>
-          URL de la Imagen:
+          <p>URL de la Imagen</p>
           <input type="text" value={imageURL} onChange={(e) => setImageURL(e.target.value)} />
         </label>
-        <br />
         <button type="submit">Crear Publicación</button>
       </form>
     </div>
+    </body>
+    
   );
 };
 

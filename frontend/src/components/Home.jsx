@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Login from './Login';
+import ShowPosts from './showPosts'
+import Header from './Header'
 
 function Home() {
   return (
     <div>
-      <Login/ >
-      <p>¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link>.</p>
+      <Header />
+      <ShowPosts />
     </div>
   );
 }

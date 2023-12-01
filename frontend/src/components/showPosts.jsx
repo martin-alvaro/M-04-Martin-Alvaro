@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DeletePost from './DeletePost';
+import '../css/ShowPosts.css'
 
 const ShowPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -25,12 +26,15 @@ const ShowPosts = () => {
   };
 
   return (
-    <div>
+    <div className="show-posts-container">
       <h1>Publicaciones</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      {posts.length === 0 ? (
+      <p style={{textAlign: 'center'}}>No hay publicaciones disponibles.</p>
+    ) : (
       <ul>
         {posts.map((post) => (
-          <li key={post._id}>
+          <li key={post._id} className="post">
             <h3>{post.title}</h3>
             <p>{post.description}</p>
             <img src={post.imageURL} alt={post.title} />
@@ -38,6 +42,7 @@ const ShowPosts = () => {
           </li>
         ))}
       </ul>
+    )}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../css/register.css';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -26,9 +27,9 @@ const Register = () => {
           avatarURL,
         }),
       });
-  
+
       if (response.ok) {
-        navigate('/login');
+        navigate('/');
       } else {
         const errorData = await response.json();
         if (errorData.error) {
@@ -44,33 +45,34 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h1>Registro</h1>
+    <div className="register-container">
+      <h1 className="register-title">Registro</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-  <label>
-    Usuario:
-    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-  </label>
-  <br />
-  <label>
-    Contraseña:
-    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-  </label>
-  <br />
-  <label>
-    Correo electrónico:
-    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-  </label>
-  <br />
-  <label>
-    URL del avatar:
-    <input type="text" value={avatarURL} onChange={(e) => setAvatarURL(e.target.value)} required />
-  </label>
-  <br />
-  <button type="submit">Registrar</button>
-</form>
+      <form className="register-form" onSubmit={handleSubmit}>
+        <label>
+          <p>Usuario</p>
+          <input className="register-input" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required/>
+        </label>
 
+        <label>
+          <p>Contraseña</p>
+          <input className="register-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+        </label>
+
+        <label>
+          <p>Correo electrónico</p>
+          <input className="register-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+        </label>
+
+        <label>
+          <p>URL del avatar</p>
+          <input className="register-input" type="text" value={avatarURL} onChange={(e) => setAvatarURL(e.target.value)} required/>
+        </label>
+        
+        <button className="register-button" type="submit">
+          Registrar
+        </button>
+      </form>
     </div>
   );
 };
