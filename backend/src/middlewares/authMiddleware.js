@@ -25,17 +25,17 @@ export const authenticateUser = async (req, res, next) => {
 };
 
 
-
 export const authorizePost = async (req, res, next) => {
   try {
     const postId = req.params.postId;
     const post = await Post.findById(postId);
 
-    console.log('Usuario autenticado:', req.user);
-    console.log('Post encontrado:', post);
+    if (!post) {
+      return res.status(404).json({ message: 'Publicación no encontrada' });
+    }
 
-    if (!post || post.author.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: 'No tienes permisos para realizar esta acción' });
+    if (post.author.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'No tienes permisos para editar esta publicación' });
     }
 
     next();

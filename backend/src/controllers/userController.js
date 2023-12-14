@@ -1,9 +1,12 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import User from '../mongoDB/models/usersModels.js';
 
 export const registerUser = async (req, res) => {
   try {
     const { username, password, email, avatarURL } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -12,7 +15,7 @@ export const registerUser = async (req, res) => {
 
     const newUser = new User({
       username,
-      password,
+      password: hashedPassword,
       email,
       avatarURL,
     });
@@ -37,9 +40,15 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email, password });
+    const user = await User.findOne({ email });
 
     if (!user) {
+      return res.status(401).json({ message: 'Correo electrónico o contraseña incorrectos' });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
       return res.status(401).json({ message: 'Correo electrónico o contraseña incorrectos' });
     }
 
@@ -50,8 +59,6 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-
 
 
 export const getUserInfo = async (req, res) => {
@@ -69,3 +76,4 @@ export const getUserInfo = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+

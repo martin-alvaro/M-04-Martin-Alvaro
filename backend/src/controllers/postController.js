@@ -40,3 +40,22 @@ export const getAllPosts = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const editPost = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      { ...req.body, author: req.user._id },
+      { new: true }
+    );
+
+    if (!updatedPost) {
+      return res.status(404).json({ message: 'Publicación no encontrada' });
+    }
+
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

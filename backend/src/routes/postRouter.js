@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/', authMiddleware.authenticateUser, postController.createPost);
 router.delete('/:postId', authMiddleware.authenticateUser, authMiddleware.authorizePost, postController.deletePost);
+router.put('/:postId', authMiddleware.authenticateUser, authMiddleware.authorizePost, postController.editPost);
 router.get('/', postController.getAllPosts);
 
 export default router;
