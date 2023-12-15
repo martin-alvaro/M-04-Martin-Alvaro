@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import '../css/CreatePost.css'
-import Header from './Header'
 
 const CreatePost = () => {
   const [posts, setPosts] = useState([]);
@@ -64,7 +63,6 @@ const CreatePost = () => {
 
   return (
     <body>
-      <Header />
       <div className="create-post-container">
       <h1>Crear Publicación</h1>
       {error && <p className="error-message">{error}</p>}

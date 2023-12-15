@@ -6,10 +6,13 @@ import Home from './components/Home';
 import ShowPosts from './components/showPosts';
 import Register from './components/Register';
 import UserProfile from './components/userInfo';
+import './components/Header'
+import Header from './components/Header';
 
 function App() {
   return (
     <Router>
+      <Header />
       <Routes>
         <Route path="/" element={<Form />} />
         <Route path="/home" element={<Home />} />

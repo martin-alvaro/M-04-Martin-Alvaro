@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import '../css/userInfo.css'
-import Header from './Header';
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -26,7 +25,6 @@ const UserProfile = () => {
 
   return (
     <body>
-      <Header />
       <div className="user-profile-container">
       <h2>Perfil de Usuario</h2>
       {user ? (
